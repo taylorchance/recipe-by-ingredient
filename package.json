@@ -20,7 +20,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.11.0",
+		"firebase": "^9.0.0",
 		"sveltefire": "^0.4.5"
 	}
 }
