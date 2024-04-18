@@ -1,5 +1,5 @@
-<script>
-// import { docStore, Collection } from 'sveltefire'
+<script lang="ts">
+import { docStore, Collection } from 'sveltefire'
 import { collectionStore } from 'sveltefire'
 import { firestore } from '$lib/firebase'
 import { collection, where, query } from 'firebase/firestore'
@@ -7,22 +7,17 @@ import { collection, where, query } from 'firebase/firestore'
 // const recipes = collectionStore(firestore, 'recipes')
 // console.log('recipes', recipes)
 
-// import { query, collection, where } from 'firebase/firestore'
+// let search = 'Caramelized Shallot Pasta'
+let search: string = ''
 
-
-// let category = 'recipes'
-
-// $: q = query(
-// 	collection(firestore, `posts`),
-// 	where('category', '==', category)
+// const recipesRef = collection(firestore, 'recipes')
+// // const q = query(recipesRef, where('name', '==', search))
+// // const q = query(recipesRef, where('recipeIngredient', 'array-contains', search))
+// const q = query(recipesRef,
+// 	where('name', '>=', search),
+//   where('name', '<=', search+ '\uf8ff')
 // )
-
-
-let search = 'Caramelized Shallot Pasta'
-
-const recipesRef = collection(firestore, 'recipes')
-const q = query(recipesRef, where('name', '==', search))
-const res = collectionStore(firestore, q)
+// const res = collectionStore(firestore, q)
 
 const handleSubmit = () => {
 
@@ -45,23 +40,16 @@ const handleSubmit = () => {
 			<button class="button mt-3" on:click={handleSubmit}>Search!</button>
 		</div>
 
-		{#each $res as recipe}
+		<!-- {#each $res as recipe}
 			<p>{recipe.name}</p>
-		{/each}
+		{/each} -->
 
-		<!-- <Collection
-			path={collection('recipes')}
-			let:data={comments}
-		>
-			{{comments}}
-		</Collection> -->
-
-		<!-- <Collection ref="recipes" let:data={recipes}>
-			{#each recipe as recipe}
-				<h2>{recipe.name}</h2>
-				<p>{recipe.recipeCuisine}</p>
+		<Collection ref={'recipes'} let:data={recipes}>
+			<!-- {recipes} -->
+			{#each recipes as recipe}
+				<p>{recipe.name}</p>
 			{/each}
-		</Collection> -->
+		</Collection>
 
 		search? {search}
 	</div>
