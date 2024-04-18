@@ -1,15 +1,15 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { env } from '$env/dynamic/public'
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDfQ15XypxTf6dLegVYcjSVf9Xdvgiu8Lc',
-  authDomain: 'recipe-scraper-98460.firebaseapp.com',
-  projectId: 'recipe-scraper-98460',
-  storageBucket: 'recipe-scraper-98460.appspot.com',
-  messagingSenderId: '10449925781',
-  appId: '1:10449925781:web:fec4f845e8b3e2a39f4d9c',
-  measurementId: 'G-06J1V2CDXV'
+  apiKey: env?.PUBLIC_FIREBASE_FIREBASE_APIKEY,
+  authDomain: env?.PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: env?.PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: env?.PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: env?.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: env?.PUBLIC_FIREBASE_APP_ID
 }
 
 export const app = initializeApp(firebaseConfig)
