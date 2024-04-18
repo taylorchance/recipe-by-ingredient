@@ -1,5 +1,5 @@
 <script>
-import './bulma.css'
+// import './bulma.css'
 import './style.css'
 
 import { firestore, auth } from '$lib/firebase'

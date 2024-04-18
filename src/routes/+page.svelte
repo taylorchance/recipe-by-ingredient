@@ -9,6 +9,8 @@ import { collection, where, query } from 'firebase/firestore'
 
 // let search = 'Caramelized Shallot Pasta'
 let search: string = ''
+let searchQuery: string = ''
+
 
 // const recipesRef = collection(firestore, 'recipes')
 // // const q = query(recipesRef, where('name', '==', search))
@@ -20,8 +22,26 @@ let search: string = ''
 // const res = collectionStore(firestore, q)
 
 const handleSubmit = () => {
-
+	searchQuery = search
 }
+
+
+
+// let query = ref => ref.where('name', '==', search)
+
+
+$: q = query(collection(firestore, 'recipes'),
+	where('name', '==', searchQuery)
+)
+
+export let data
+console.log('data', data)
+
+// const doFunc = async () => {
+// 	const temp = await getRecipes()
+// 	console.log('temp', temp)
+// }
+// doFunc()
 </script>
 
 <svelte:head>
@@ -40,17 +60,27 @@ const handleSubmit = () => {
 			<button class="button mt-3" on:click={handleSubmit}>Search!</button>
 		</div>
 
-		<!-- {#each $res as recipe}
+		<!-- {#each recipes as recipe}
 			<p>{recipe.name}</p>
 		{/each} -->
 
+
+		<!-- <Collection ref={'recipes'} query={(ref) => ref.limit(5)} let:data={recipes}> -->
 		<Collection ref={'recipes'} let:data={recipes}>
-			<!-- {recipes} -->
+		<!-- <Collection ref={q} let:data={recipes}> -->
+			<div slot="loading" class="loader-wrapper">
+				<div class="loader is-loading"></div>
+			</div>
 			{#each recipes as recipe}
-				<p>{recipe.name}</p>
+				<dix class="box">
+					<p class="heading">{recipe.name}</p>
+					<p>{recipe.recipeCuisine}</p>
+					<p>{recipe.recipeIngredient}</p>
+
+				</dix>
 			{/each}
 		</Collection>
 
-		search? {search}
+		searchQuery? {searchQuery}
 	</div>
 </section>
